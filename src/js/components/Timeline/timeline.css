@@ -1,0 +1,32 @@
+.timeline-block {
+    border: 1px solid black;
+    border-radius: 10px;
+    width: 80%;
+    height: 80vh;
+    margin: 10vh auto;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.message-block {
+    width: 100%;
+    margin: 0 auto;
+    height: 90%;
+    border: 1px solid black;
+}
+
+.message-form {
+    height: 7%;
+}
+
+.message-input {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+}
+
+.message-input:focus {
+    outline: none;
+}

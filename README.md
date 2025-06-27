@@ -1,3 +1,3 @@
 
-Проект доступен по ссылке https://antonycoder.github.io// 
+Проект доступен по ссылке https://antonycoder.github.io/Timeline/ 
 
