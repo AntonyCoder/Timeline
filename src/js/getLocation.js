@@ -1,6 +1,13 @@
-export default function getLocation(){
-    navigator.geolocation.getCurrentPosition((e) => {
-        const { latitude, longitude } = e.coords
-        
+export default function getLocation() {
+    return new Promise((resolve, reject) => {
+        navigator.geolocation.getCurrentPosition((location) => {
+            const { latitude, longitude } = location.coords;
+            resolve({ latitude, longitude })
+        },
+            (error) => {
+                reject(error)
+                
+            }
+        );
     });
 }

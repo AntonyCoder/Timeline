@@ -1,4 +1,7 @@
 import './timeline.css'
+import getLocation from '../../getLocation';
+import createMessage from '../message/message';
+import LocationForm from '../locationForm/locationForm';
 
 export default class Timeline {
     constructor(container) {
@@ -7,8 +10,9 @@ export default class Timeline {
         }
         this.container = container;
 
-        this.init();
         this.sendMessage = this.sendMessage.bind(this);
+        this.manualCoords = null;
+        this.init();
     }
 
     //Инициализация приложения
@@ -22,6 +26,7 @@ export default class Timeline {
 
         const messageBlock = document.createElement('div');
         messageBlock.classList.add('message-block');
+        this.messageBlock = messageBlock
 
         const messageForm = document.createElement('form');
         messageForm.classList.add('message-form');
@@ -29,6 +34,7 @@ export default class Timeline {
         const messageInput = document.createElement('input');
         messageInput.classList.add('message-input');
         messageInput.type = 'text';
+        messageInput.name = 'message';
 
         messageForm.appendChild(messageInput);
 
@@ -39,9 +45,31 @@ export default class Timeline {
         messageForm.addEventListener('submit', this.sendMessage);
     }
 
-    sendMessage(e) {
+    async sendMessage(e) {
         e.preventDefault();
-        
+        let location;
+        try {
+            location = await getLocation();
 
+        } catch (error) {
+            if (this.container.querySelector('.location-form')) return;
+
+            if (this.manualCoords) {
+                location = this.manualCoords;
+            } else {
+                new LocationForm(this.container, (coords) => {
+                    this.manualCoords = coords;
+                    this.sendMessage(e)
+                });
+                return
+            }
+        }
+
+        const messageText = e.target.elements.message.value;
+        if (!messageText) return;
+
+        const messageItem = createMessage(messageText, location);
+        this.messageBlock.appendChild(messageItem);
+        e.target.reset();
     }
 }

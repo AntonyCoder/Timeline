@@ -1,7 +1,8 @@
 import './message.css';
 
-export default function createMessage(text){
-    const date = new Date()
+export default function createMessage(text, location){
+    const date = new Date();
+    const {latitude, longitude} = location
 
     const messageItem = document.createElement('div');
     messageItem.classList.add('message-item');
@@ -16,4 +17,9 @@ export default function createMessage(text){
 
     const messageLocation = document.createElement('p');
     messageLocation.classList.add('message-location');
+    messageLocation.textContent = `[${latitude}, ${longitude}]`
+
+    messageItem.append(messageDate, messageText, messageLocation);
+
+    return messageItem;
 }
