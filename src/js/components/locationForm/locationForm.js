@@ -78,15 +78,10 @@ export default class LocationForm {
             return;
         }
 
-        // Координаты валидны
         this.onCoordinatesValidated({ latitude, longitude });
 
         e.target.remove();
-
-
-
     }
-
 
     closeForm(e) {
         const form = e.target.closest('form');

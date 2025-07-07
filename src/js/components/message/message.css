@@ -6,20 +6,16 @@
 
     display: flex;
     flex-direction: column;
-
+    gap: 10px;
 }
 
-.message-date{
+.message-date {
     color: rgb(119, 119, 119);
     font-size: 14px;
     align-self: flex-end;
 }
 
-.message-text{
-    margin-bottom: 10px;
-}
-
-.message-location{
+.message-location {
     color: rgb(119, 119, 119);
     font-size: 14px;
 }

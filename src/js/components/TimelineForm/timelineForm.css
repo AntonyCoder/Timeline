@@ -1,0 +1,58 @@
+.message-form {
+    position: relative;
+    height: 7%;
+}
+
+.message-input {
+    width: 100%;
+    height: 100%;
+    font-size: 24px;
+}
+
+.message-input:focus {
+    outline: none;
+}
+
+.voice-button,
+.camera-button,
+.stop-record-button,
+.cancel-record-button {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    top: 50%;
+    transform: translate(0, -50%);
+
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-position: center center;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 50%;
+
+    cursor: pointer;
+}
+
+.voice-button {
+    right: 7%;
+    background-image: url('../../../img/microphone.png');
+}
+
+.camera-button {
+    right: 1%;
+    background-image: url('../../../img/camera.png');
+}
+
+.stop-record-button{
+    right: 7%;
+    background-image: url('../../../img/approve.png');
+}
+
+.cancel-record-button {
+    right: 1%;
+    background-image: url('../../../img/cancel.png');
+}
+
+.hidden {
+    display: none;
+}
