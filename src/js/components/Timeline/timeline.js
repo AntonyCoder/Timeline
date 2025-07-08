@@ -83,7 +83,7 @@ export default class Timeline {
             } else {
                 new LocationForm(this.container, (coords) => {
                     this.manualCoords = coords;
-                    this.sendMessage(e);
+                    this.sendAudioMessage(audioUrl);
                 });
                 return;
             }

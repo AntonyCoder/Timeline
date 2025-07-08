@@ -1,3 +1,4 @@
+import Stopwatch from '../Stopwatch/stopwatch';
 import './timelineForm.css'
 
 export default class TimelineForm {
@@ -52,19 +53,27 @@ export default class TimelineForm {
         stopRecordButton.classList.add('stop-record-button');
         this.stopRecordButton = stopRecordButton;
 
+        //Секундомер отсчета записи
+        const stopwatch = document.createElement('div');
+        stopwatch.classList.add('stopwatch');
+        stopwatch.textContent = '00:00';
+        this.stopwatch = stopwatch
+
         //Кнопка отмены записи
         const cancelRecordButton = document.createElement('button');
         cancelRecordButton.type = 'button';
         cancelRecordButton.classList.add('cancel-record-button');
         this.cancelRecordButton = cancelRecordButton;
 
-        recorderBlock.append(stopRecordButton, cancelRecordButton);
+        recorderBlock.append(stopRecordButton, stopwatch, cancelRecordButton);
 
         cameraButton.addEventListener('click', this.onCameraButton);
 
         recorderButtonWrapper.append(voiceButton, cameraButton);
 
         messageForm.append(messageInput, recorderButtonWrapper, recorderBlock);
+
+        this.onStopwatch = new Stopwatch(this.stopwatch);
 
         return messageForm;
     }
@@ -73,6 +82,7 @@ export default class TimelineForm {
     async onVoiceButton() {
         this.isCanceled = false;
         this.showRecorderBlock();
+        this.onStopwatch.start();
 
         this.media = await navigator.mediaDevices.getUserMedia({ audio: true })
         this.recorder = new MediaRecorder(this.media);
@@ -104,10 +114,11 @@ export default class TimelineForm {
 
         this.stopRecordButton.addEventListener('click', () => {
             this.recorder.stop();
+            this.onStopwatch.stop();
         })
     }
 
-
+    //Отмена записи
     cancelRecording() {
         this.isCanceled = true;
         if (this.recorder && this.recorder.state !== 'inactive') {
@@ -116,8 +127,11 @@ export default class TimelineForm {
         this.chunks = [];
         this.stopMediaStream();
         this.hideRecorderBlock();
+
+        this.onStopwatch.stop();
     }
 
+    //Остановка потока
     stopMediaStream() {
         if (this.media) {
             this.media.getTracks().forEach(track => track.stop());
@@ -127,7 +141,7 @@ export default class TimelineForm {
 
     //Запуск счетчика времени записи 
     showRecordTime() {
-        
+
     }
 
     //Обработка нажатия на кнопку записи видео
@@ -135,11 +149,13 @@ export default class TimelineForm {
         console.log('camera');
     }
 
+    //Показ блока записи
     showRecorderBlock() {
         this.recorderButtonWrapper.classList.add('hidden');
         this.recorderBlock.classList.remove('hidden');
     }
 
+    //Скрытие блока записи
     hideRecorderBlock() {
         this.recorderButtonWrapper.classList.remove('hidden');
         this.recorderBlock.classList.add('hidden');

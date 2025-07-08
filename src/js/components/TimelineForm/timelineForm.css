@@ -44,7 +44,7 @@
 }
 
 .stop-record-button{
-    right: 7%;
+    right: 12%;
     background-image: url('../../../img/approve.png');
 }
 
@@ -55,4 +55,11 @@
 
 .hidden {
     display: none;
+}
+
+.stopwatch{
+    position: absolute;
+    right: 6%;
+    top: 50%;
+    transform: translate(0, -50%);
 }
